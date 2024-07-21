@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKI AI - My AI Company</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>SKI AI - My AI Company</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="my_ai_company.html">My AI Company</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Interact with Our AI</h2>
+        <form id="ai-form">
+            <label for="command">Enter Command:</label>
+            <input type="text" id="command" name="command">
+            <button type="button" onclick="sendCommand()">Send</button>
+        </form>
+        <div id="response"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 SKI AI</p>
+    </footer>
+    <script>
+        function sendCommand() {
+            const command = document.getElementById('command').value;
+            fetch('/command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.response;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
